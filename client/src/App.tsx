@@ -8,6 +8,8 @@ import Dashboard from "./pages/Dashboard";
 import { useLayoutEffect } from "react";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import Checkout from "./pages/Checkout";
+import { Toaster } from "@/components/ui/sonner"
 
 type ScrollToTopWrapperProps = {
   children: React.ReactNode;
@@ -45,8 +47,10 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="admin" element={<Dashboard />} />
+          <Route path='checkout' element={<Checkout/>}/>
         </Routes>
       </ScrollToTopWrapper>
+      <Toaster toastOptions={{className:"font-sans"}} position="top-center"/>
     </BrowserRouter>
      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

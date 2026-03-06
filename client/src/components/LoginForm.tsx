@@ -112,9 +112,6 @@ export function LoginForm() {
           </Link>
         </p>
       </form>
-      <Link to="/admin" className="font-semibold text-black hover:underline">
-        Aunty, click here to see the dashboard.
-      </Link>
     </div>
   );
 }

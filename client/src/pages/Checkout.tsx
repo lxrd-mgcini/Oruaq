@@ -1,0 +1,160 @@
+import Announcement from "@/components/Announcement";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import MainLayout from "@/layout/MainLayout";
+import { useShallow } from "zustand/shallow";
+import { CartItem, useCart } from "../store/cart";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useState } from "react";
+import { toast } from "sonner";
+
+interface Order {
+  paymentMethod: "ECOCASH" | "ONEWALLET" | "VISA";
+  phoneNumber: string;
+  items: CartItem[];
+}
+
+const Checkout = () => {
+  const { count, cart, addCart, removeCart } = useCart(
+    useShallow((state) => ({
+      count: state.count,
+      cart: state.cart,
+      addCart: state.addCart,
+      removeCart: state.removeCart,
+    })),
+  );
+  const totalItems = count;
+  const totalPrice = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
+
+  const [order, setOrder] = useState<Order>({
+    paymentMethod: "ECOCASH",
+    phoneNumber: "",
+    items: cart,
+  });
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target; // Destructure name and value from the event target
+    setOrder({
+      ...order, // Copy all other values
+      [name]: value, // Update the specific field using computed property names
+    });
+  };
+
+  return (
+    <div className="relative max-w-full">
+      <Announcement />
+      <Navbar />
+      <MainLayout>
+        <div className="grid grid-cols-2 grid-rows-1">
+          <div className="text-black">
+            <h2 className="mb-4 text-3xl font-semibold text-black">
+              Order Details
+            </h2>
+            <form action="submit">
+              <p className="text-xl font-semibold">
+                Select your payment method:
+              </p>
+              <RadioGroup
+                defaultValue="ecocash"
+                className="w-fit gap-4 font-sans"
+              >
+                <div className="flex items-center gap-3">
+                  <RadioGroupItem value="ecocash" id="r1" />
+                  <Label htmlFor="r1">Ecocash USD</Label>
+                </div>
+                <div className="flex items-center gap-3">
+                  <RadioGroupItem value="onewallet" id="r2" disabled />
+                  <Label htmlFor="r2">OneWallet USD</Label>
+                </div>
+                <div className="flex items-center gap-3">
+                  <RadioGroupItem value="visa" id="r3" disabled />
+                  <Label htmlFor="r3">VISA</Label>
+                </div>
+              </RadioGroup>
+
+              <br />
+
+              <p className="text-xl font-semibold">Enter your phone number:</p>
+              <p className="text-sm font-semibold text-black/50">
+                Enter the ecocash number that will be used for paying
+              </p>
+
+              <input
+                type="text"
+                name="phoneNumber"
+                placeholder="0712345678"
+                className="mt-2 border-2 border-black px-4 py-2"
+                value={order.phoneNumber}
+                onChange={handleChange}
+              />
+            </form>
+          </div>
+
+          <div>
+            <div>
+              <h2 className="text-3xl font-semibold text-black">Summary</h2>
+              <hr className="my-4 border border-black50" />
+              <ul>
+                {cart.map((item) => (
+                  <li
+                    key={item._id + item.name}
+                    className="flex justify-between text-black"
+                  >
+                    <p>
+                      {item.name.length > 15
+                        ? `${item.name.slice(0, 15)}...`
+                        : item.name}
+                    </p>
+                    <div className="flex items-center gap-x-2 font-semibold text-black">
+                      <button onClick={() => removeCart(item._id)}>-</button>
+                      <p>{item.quantity}</p>
+                      <button onClick={() => addCart(item)}>+</button>
+                    </div>
+                    <p>${(item.price * item.quantity).toFixed(2)}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="flex justify-between border-t border-dashed border-neutral-400 pt-2 text-[0.9rem] font-medium text-black">
+              <p>Total items:</p>
+              <p>{totalItems}</p>
+            </div>
+
+            <div className="flex justify-between border-t border-dashed border-neutral-400 pt-2 text-[0.9rem] font-medium text-black">
+              <p>Total Price:</p>
+              <p className="font-bold">${totalPrice}</p>
+            </div>
+
+            {order.phoneNumber.length === 10 ? (
+              <div className="flex flex-col gap-4 pt-4 lg:flex-row">
+                <button
+                  className="flex h-[64px] w-full items-center justify-center gap-2 bg-black text-white transition duration-300 hover:scale-105"
+                  onClick={() => {
+                    console.log(order);
+                    toast("Placing your Order", {
+                      description:
+                        "Please enter your PIN on your phone to complete your order",
+                    });
+                  }}
+                >
+                  Place Order
+                </button>
+              </div>
+            ) : (
+              <button className="flex h-[64px] w-full items-center justify-center gap-2 bg-muted-foreground text-muted hover:cursor-not-allowed">
+                Place Order
+              </button>
+            )}
+          </div>
+        </div>
+      </MainLayout>
+      <Footer />
+    </div>
+  );
+};
+export default Checkout;

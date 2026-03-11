@@ -56,14 +56,15 @@ export default function Cart() {
         <p>Total Price:</p>
         <p className='font-bold'>${totalPrice}</p>
       </div>
-      <Link to='/checkout'>
+      {cart.length > 0 && <Link to='/checkout'>
       <button className="group relative flex w-full items-center self-center overflow-hidden bg-black px-5 py-2 font-medium text-white">
         <span className="backdrop-brightness-10 absolute left-0 top-0 mb-0 flex h-0 w-full translate-y-0 transform bg-brand transition-all duration-300 ease-out group-hover:h-full"></span>
         <span className="relative w-full items-center self-center text-center group-hover:text-black">
           Proceed to Checkout
         </span>
       </button>
-      </Link>
+      </Link>}
+      
     </div>
     // <div className="bg-red-950">
     //   <h1>Cart</h1>

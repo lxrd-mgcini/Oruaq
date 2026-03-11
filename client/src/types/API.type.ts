@@ -2,6 +2,7 @@ export type registerType = {
   //   name: string;
   email: string;
   password: string;
+  username:string
 };
 
 export type loginType = { email: string; password: string };
@@ -32,5 +33,17 @@ export type ProductResponseType = {
   updatedAt: string;
   createdAt: string;
   __v: number;
+ 
+};
+
+type OrderItem ={
+  _id:string,
+  quantity:number
+}
+
+export type OrderRequestType = {
+ paymentMethod : string,
+ phoneNumber: string,
+ items: OrderItem[],
  
 };

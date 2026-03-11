@@ -8,6 +8,7 @@ export const isAuthenticated = (
   next: NextFunction
 ) => {
   const token = req.cookies.token;
+
   if (!token) throw new Error("Missing auth token. Please resgister or login");
   try {
     const decoded = jwt.verify(token, config.JWT_SECRET) as JwtPayload;

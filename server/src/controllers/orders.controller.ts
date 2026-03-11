@@ -9,7 +9,8 @@ import {
 import OrderModel from "../models/order.model";
 
 export const createOrder = asyncHandler(async (req: Request, res: Response) => {
-  const { items, userId } = createOrderSchema.parse(req.body);
+  const { items } = createOrderSchema.parse(req.body);
+  const userId = req.userId
 
   // Create Order
   const order = await OrderModel.create({ items, userId });

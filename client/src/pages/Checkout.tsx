@@ -8,9 +8,13 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useState } from "react";
 import { toast } from "sonner";
+import { createOrderMutationFn } from "@/services/API";
+import {  useMutation } from "@tanstack/react-query";
+
+
 
 interface Order {
-  paymentMethod: "ECOCASH" | "ONEWALLET" | "VISA";
+  paymentMethod: "CASH-ON-COLLECTION" | "ECOCASH" | "ONEWALLET" | "VISA";
   phoneNumber: string;
   items: CartItem[];
 }
@@ -31,10 +35,29 @@ const Checkout = () => {
   );
 
   const [order, setOrder] = useState<Order>({
-    paymentMethod: "ECOCASH",
+    paymentMethod: "CASH-ON-COLLECTION",
     phoneNumber: "",
-    items: cart,
+    items: cart
   });
+
+  const mutation = useMutation({
+  mutationFn: createOrderMutationFn,
+  onSuccess: () => {
+    toast.success("Order Successfully Placed");
+  },
+  onError: () => {
+    toast.warning("Please login or register to create your order");
+  },
+});
+
+const handleOrderSubmit = () => {
+  console.log(order);
+  mutation.mutate(order)
+  // We removed this since its currently cash on collection methods
+  // toast("Placing your Order", {
+  //   description: "Please enter your PIN on your phone to complete your order",
+  // });
+};
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target; // Destructure name and value from the event target
@@ -64,9 +87,9 @@ const Checkout = () => {
               >
                 <div className="flex items-center gap-3">
                   <RadioGroupItem value="ecocash" id="r1" />
-                  <Label htmlFor="r1">Ecocash USD</Label>
+                  <Label htmlFor="r1">Cash on Collection (USD)</Label>
                 </div>
-                <div className="flex items-center gap-3">
+                {/* <div className="flex items-center gap-3">
                   <RadioGroupItem value="onewallet" id="r2" disabled />
                   <Label htmlFor="r2">OneWallet USD</Label>
                 </div>
@@ -74,13 +97,17 @@ const Checkout = () => {
                   <RadioGroupItem value="visa" id="r3" disabled />
                   <Label htmlFor="r3">VISA</Label>
                 </div>
+                <div className="flex items-center gap-3">
+                  <RadioGroupItem value="visa" id="r3" disabled />
+                  <Label htmlFor="r3">VISA</Label>
+                </div> */}
               </RadioGroup>
 
               <br />
 
               <p className="text-xl font-semibold">Enter your phone number:</p>
               <p className="text-sm font-semibold text-black/50">
-                Enter the ecocash number that will be used for paying
+                Enter the phone number we can contact you on
               </p>
 
               <input
@@ -130,17 +157,12 @@ const Checkout = () => {
               <p className="font-bold">${totalPrice}</p>
             </div>
 
-            {order.phoneNumber.length === 10 ? (
+            {order.phoneNumber.length === 10 && cart.length > 0 ? (
               <div className="flex flex-col gap-4 pt-4 lg:flex-row">
                 <button
                   className="flex h-[64px] w-full items-center justify-center gap-2 bg-black text-white transition duration-300 hover:scale-105"
-                  onClick={() => {
-                    console.log(order);
-                    toast("Placing your Order", {
-                      description:
-                        "Please enter your PIN on your phone to complete your order",
-                    });
-                  }}
+                  disabled={mutation.isPending}
+                  onClick={handleOrderSubmit}
                 >
                   Place Order
                 </button>

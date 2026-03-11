@@ -2,32 +2,79 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { loginType, registerType } from "@/types/API.type";
+import { useMutation } from "@tanstack/react-query";
+import { loginMutationFn, registerMutationFn } from "@/services/API";
+import { toast } from "sonner";
+// import { z } from "zod";
 
 export function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  let navigate = useNavigate();
+
+  const [formData, setFormData] = useState<registerType>({
+    email: "",
+    password: "",
+    username:""
+  });
+
+  const mutation = useMutation({
+    mutationFn: registerMutationFn,
+    onSuccess: (response) => {
+      toast.success("Account registration successful")
+      // Redirect or update global auth state here
+      navigate('/login')
+    },
+    onError: (error) => {
+      console.error("Account Registration failed", error);
+    },
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // 2. Trigger the mutation with the form object
+    mutation.mutate(formData);
+  };
 
   return (
-    <div className="mx-auto max-w-[400px] space-y-6 p-8">
+    <div className="mx-auto max-w-[400px] space-y-3 p-4 sm:space-y-6 sm:p-8">
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-semibold text-black">My Account</h1>
         <p className="font-medium text-gray-500">Register</p>
       </div>
 
-      <form className="space-y-6">
+      <form className="space-y-6" onSubmit={handleSubmit}>
         <div className="space-y-2">
           <label htmlFor="email" className="block text-sm text-gray-700">
             Email address
           </label>
           <Input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
             className="w-full rounded-none border-gray-300 focus:border-gray-500 focus:ring-gray-500"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
           />
+          {/* {errors.email && <span>{errors?email.message}</span> */}
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="username" className="block text-sm text-gray-700">
+            Username
+          </label>
+          <Input
+            className="w-full rounded-none border-gray-300 focus:border-gray-500 focus:ring-gray-500"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
+          {/* {errors.email && <span>{errors?email.message}</span> */}
         </div>
 
         <div className="space-y-2">
@@ -45,9 +92,11 @@ export function RegisterForm() {
           <div className="relative">
             <Input
               id="password"
+              name="password"
               type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={formData.password}
+              onChange={handleChange}
+              required
               className="w-full rounded-none border-gray-300 pr-10 focus:border-gray-500 focus:ring-gray-500"
             />
             <button
@@ -64,11 +113,8 @@ export function RegisterForm() {
           </div>
         </div>
 
-        <Button
-          type="submit"
-          className="w-full rounded-none bg-black py-3 text-sm font-medium text-white hover:bg-gray-900"
-        >
-          REGISTER
+        <Button type="submit" disabled={mutation.isPending} className="w-full rounded-none bg-black py-3 text-sm font-medium text-white hover:bg-gray-900">
+          {mutation.isPending ? 'REGISTERING ...' : 'REGISTER'}
         </Button>
 
         <p className="text-center text-sm text-gray-600">
@@ -77,7 +123,7 @@ export function RegisterForm() {
             to="/login"
             className="font-semibold text-black hover:underline"
           >
-            Login now.
+            Login.
           </Link>
         </p>
       </form>

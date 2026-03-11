@@ -67,7 +67,6 @@ export default function Product() {
                   <h4 className="mt-8 text-4xl font-light">
                     ${product?.price}
                   </h4>
-                  <p className="mt-4">{product?.description}</p>
                   <div className="my-8 flex justify-center gap-4">
                     <p>
                       <strong>Category</strong>: Cosmetics
@@ -89,6 +88,7 @@ export default function Product() {
 
               <div>
                 <p className="underline">Quantity Details</p>
+                <p>{product.description}</p>
                 <div className="flex flex-col gap-4 pt-4 lg:flex-row">
                   <button
                     className="flex h-[64px] w-full items-center justify-center gap-2 bg-black text-white transition duration-300 hover:scale-105"

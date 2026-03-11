@@ -26,7 +26,7 @@ export default function Card({ title, price, image }: Props) {
         </span>
       </button>
 
-      <h3 className="mt-1 w-full overflow-hidden text-ellipsis text-nowrap font-semibold">
+      <h3 className="mt-1 w-full text-ellipsis text-nowrap font-semibold">
         {title}
       </h3>
       <p className="">${price}</p>

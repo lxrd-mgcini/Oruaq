@@ -12,7 +12,10 @@ import { orderRoutes } from "./routes/order.routes";
 const app = express();
 
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
 
 console.log(config.BASE_PATH)
 

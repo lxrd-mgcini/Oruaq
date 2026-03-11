@@ -7,7 +7,8 @@ const orderItemSchema = z.object({
 
 export const createOrderSchema = z.object({
     items: z.array(orderItemSchema),
-    userId: z.string().trim()
+
+
 })
 
 export const orderIdSchema = z

@@ -3,45 +3,43 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router";
-import { useForm } from "react-hook-form";
-import axios from "axios";
+import { loginType } from "@/types/API.type";
+import { useMutation } from "@tanstack/react-query";
+import { loginMutationFn } from "@/services/API";
+import { toast } from "sonner";
 // import { z } from "zod";
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   let navigate = useNavigate();
 
-  // const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState<loginType>({
+    email: "",
+    password: "",
+  });
 
-  const {
-    register,
-    handleSubmit,
-    // formState: { errors },
-  } = useForm();
+  const mutation = useMutation({
+    mutationFn: loginMutationFn,
+    onSuccess: (response) => {
+      toast.success("Successfully logged in")
+      // Redirect or update global auth state here
+      navigate('/')
+    },
+    onError: (error) => {
+      console.error("Login failed", error);
+    },
+  });
 
-  const onSubmit = async (data: any) => {
-    try {
-      const response = await axios.post(
-        "http://localhost:8800/api/v1/auth/login",
-        data,
-      );
-
-      if (response.data.success) {
-        navigate("/products");
-      }
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  // const formSchema = z.object({
-  //   email: z.string().trim().email("Invalid email address").min(1, {
-  //     message: "Email is required",
-  //   }),
-  //   password: z.string().trim().min(1, {
-  //     message: "Password is required",
-  //   }),
-  // });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // 2. Trigger the mutation with the form object
+    mutation.mutate(formData);
+  };
 
   return (
     <div className="mx-auto max-w-[400px] space-y-3 p-4 sm:space-y-6 sm:p-8">
@@ -50,14 +48,17 @@ export function LoginForm() {
         <p className="font-medium text-gray-500">Login</p>
       </div>
 
-      <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+      <form className="space-y-6" onSubmit={handleSubmit}>
         <div className="space-y-2">
           <label htmlFor="email" className="block text-sm text-gray-700">
             Email address
           </label>
           <Input
-            {...register("email", { required: "Email is required" })}
             className="w-full rounded-none border-gray-300 focus:border-gray-500 focus:ring-gray-500"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
           />
           {/* {errors.email && <span>{errors?email.message}</span> */}
         </div>
@@ -67,18 +68,21 @@ export function LoginForm() {
             <label htmlFor="password" className="flex text-sm text-gray-700">
               Password
             </label>
-            <a
+            {/* <a
               href="#"
               className="text-sm font-semibold text-black hover:text-gray-900 hover:underline"
             >
               Forgot Password
-            </a>
+            </a> */}
           </div>
           <div className="relative">
             <Input
               id="password"
+              name="password"
               type={showPassword ? "text" : "password"}
-              {...register("password", { required: "Password is required" })}
+              value={formData.password}
+              onChange={handleChange}
+              required
               className="w-full rounded-none border-gray-300 pr-10 focus:border-gray-500 focus:ring-gray-500"
             />
             <button
@@ -95,11 +99,8 @@ export function LoginForm() {
           </div>
         </div>
 
-        <Button
-          type="submit"
-          className="w-full rounded-none bg-black py-3 text-sm font-medium text-white hover:bg-gray-900"
-        >
-          LOGIN
+        <Button type="submit" disabled={mutation.isPending} className="w-full rounded-none bg-black py-3 text-sm font-medium text-white hover:bg-gray-900">
+          {mutation.isPending ? 'LOGGING IN...' : 'LOGIN'}
         </Button>
 
         <p className="text-center text-sm text-gray-600">

@@ -66,7 +66,7 @@ export const Products = () => {
                   </span>
                 </button>
 
-                <h3 className="mt-1 w-full overflow-hidden text-ellipsis text-nowrap font-semibold">
+                <h3 className="mt-1 w-full  text-ellipsis text-nowrap font-semibold">
                   {product.name}
                 </h3>
                 <p>${product.price}</p>
@@ -77,5 +77,5 @@ export const Products = () => {
       </MainLayout>
       <Footer />
     </div>
-  );
+  )
 };

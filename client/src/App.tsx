@@ -50,7 +50,11 @@ function App() {
           <Route path='checkout' element={<Checkout/>}/>
         </Routes>
       </ScrollToTopWrapper>
-      <Toaster toastOptions={{className:"font-sans"}} position="top-center"/>
+      <Toaster duration={7000} toastOptions={{classNames:{
+      
+        content:"text-black font-sans",   
+         
+      }}} position="top-center"/>
     </BrowserRouter>
      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

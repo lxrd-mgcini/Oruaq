@@ -40,7 +40,7 @@ export const registerUserService = async (data: UserType) => {
 
   const token = generateJWT(user.id);
 
-  await sendVerificationEmail(user.email, user.verificationCode);
+  // await sendVerificationEmail(user.email, user.verificationCode);
 
   return { user, token };
 };

@@ -26,7 +26,7 @@ export const registerUserController = asyncHandler(
     res.cookie("token", token, {
       httpOnly: true,
       secure: false, //TO-DO: Take value from env file
-      sameSite: "strict",
+      sameSite: "lax",
       maxAge: 14 * 24 * 60 * 60 * 1000,
     });
 
@@ -46,7 +46,7 @@ export const loginUserController = asyncHandler(async (req, res) => {
   res.cookie("token", token, {
     httpOnly: true,
     secure: false, //TO-DO: Take value from env file
-    sameSite: "strict",
+    sameSite: "lax",
     maxAge: 14 * 24 * 60 * 60 * 1000,
   });
 

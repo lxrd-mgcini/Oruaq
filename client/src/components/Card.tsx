@@ -13,7 +13,7 @@ export default function Card({ title, price, image }: Props) {
     <div className="flex aspect-square h-full w-full flex-1 flex-col text-center">
       <div className="relative aspect-square h-max w-full overflow-hidden">
         <img
-          src={image || "/images/body-care.jpg"}
+          src={image}
           alt=""
           className="h-[100vw] min-w-full object-cover object-center transition duration-500 ease-in-out hover:scale-110 sm:h-full"
         />

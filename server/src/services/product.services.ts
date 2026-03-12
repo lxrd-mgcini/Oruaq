@@ -8,9 +8,9 @@ export const getAllProductsService = async () => {
 
 export const createProductService = async (data: {
   name: string;
-  price: number;
+  price: string;
   description: string;
-  imgUrl: string;
+  imgUrl: string[];
   tags: string[];
 }) => {
   const product = new ProductModel(data);
@@ -32,9 +32,9 @@ export const updateProductByIdService = async (
   id: string,
   data: {
     name: string;
-    price: number;
+    price: string;
     description: string;
-    imgUrl: string;
+    imgUrl: string[];
   }
 ) => {
   const product = await ProductModel.findByIdAndUpdate({ _id: id }, data);

@@ -10,6 +10,9 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { createOrderMutationFn } from "@/services/API";
 import {  useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
+import confetti from "canvas-confetti"
+
 
 
 
@@ -20,17 +23,46 @@ interface Order {
 }
 
 const Checkout = () => {
-  const { count, cart, addCart, removeCart } = useCart(
+  const navigate = useNavigate()
+
+  const celebration = ()=>{
+    const end = Date.now() + 4 * 1000 // 3 seconds
+    const colors = ["#fff0d9", "#d9d9d99e", "#77736E", "#77736E"]
+    const frame = () => {
+      if (Date.now() > end) return
+      confetti({
+        particleCount: 4,
+        angle: 60,
+        spread: 60,
+        startVelocity: 60,
+        origin: { x: 0, y: 0.5 },
+        colors: colors,
+      })
+      confetti({
+        particleCount: 4,
+        angle: 120,
+        spread: 60,
+        startVelocity: 60,
+        origin: { x: 1, y: 0.5 },
+        colors: colors,
+      })
+      requestAnimationFrame(frame)
+    }
+    frame()
+  }
+
+  const { count, cart, addCart, removeCart, clearCart} = useCart(
     useShallow((state) => ({
       count: state.count,
       cart: state.cart,
       addCart: state.addCart,
       removeCart: state.removeCart,
+      clearCart:state.clearCart
     })),
   );
   const totalItems = count;
   const totalPrice = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + Number(item.price) * item.quantity,
     0,
   );
 
@@ -39,11 +71,18 @@ const Checkout = () => {
     phoneNumber: "",
     items: cart
   });
+  
 
   const mutation = useMutation({
   mutationFn: createOrderMutationFn,
   onSuccess: () => {
     toast.success("Order Successfully Placed");
+    celebration()
+    clearCart()    
+    navigate('/products');
+   
+    
+    
   },
   onError: () => {
     toast.warning("Please login or register to create your order");
@@ -68,25 +107,25 @@ const handleOrderSubmit = () => {
   };
 
   return (
-    <div className="relative max-w-full">
+    <div className="relative max-w-full ">
       <Announcement />
       <Navbar />
       <MainLayout>
-        <div className="grid grid-cols-2 grid-rows-1">
+        <div className="grid grid-cols-1 grid-rows-2 gap-16 md:mx-4 lg:mx-8 lg:grid-cols-2 lg:grid-rows-1">
           <div className="text-black">
             <h2 className="mb-4 text-3xl font-semibold text-black">
               Order Details
             </h2>
             <form action="submit">
-              <p className="text-xl font-semibold">
+              <p className="text-xl font-semibold mb-2">
                 Select your payment method:
               </p>
               <RadioGroup
-                defaultValue="ecocash"
+                defaultValue="cash-on-collection"
                 className="w-fit gap-4 font-sans"
               >
                 <div className="flex items-center gap-3">
-                  <RadioGroupItem value="ecocash" id="r1" />
+                  <RadioGroupItem value="cash-on-collection" id="r1" />
                   <Label htmlFor="r1">Cash on Collection (USD)</Label>
                 </div>
                 {/* <div className="flex items-center gap-3">
@@ -105,8 +144,8 @@ const handleOrderSubmit = () => {
 
               <br />
 
-              <p className="text-xl font-semibold">Enter your phone number:</p>
-              <p className="text-sm font-semibold text-black/50">
+              <p className="text-xl font-semibold mb-2">Enter your phone number:</p>
+              <p className="text-sm font-semibold text-black/50 mb-2">
                 Enter the phone number we can contact you on
               </p>
 
@@ -141,7 +180,7 @@ const handleOrderSubmit = () => {
                       <p>{item.quantity}</p>
                       <button onClick={() => addCart(item)}>+</button>
                     </div>
-                    <p>${(item.price * item.quantity).toFixed(2)}</p>
+                    <p>${(Number(item.price) * item.quantity).toFixed(2)}</p>
                   </li>
                 ))}
               </ul>

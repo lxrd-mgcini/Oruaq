@@ -5,10 +5,10 @@ import Hero from "../components/Hero";
 import Navbar from "../components/Navbar";
 import MainLayout from "../layout/MainLayout";
 
-import PopularProducts from "../components/Lists/Popular";
 import NewProducts from "../components/Lists/New";
 import Features from "../components/Lists/Features";
 import Footer from "../components/Footer";
+import Popular from "@/components/Lists/Popular";
 
 export default function Home() {
   return (
@@ -21,7 +21,7 @@ export default function Home() {
       <MainLayout>
         <Hero />
         <Catagories />
-        <PopularProducts />
+        <Popular />
         <NewProducts />
         <Features />
       </MainLayout>

@@ -1,9 +1,9 @@
 type Props = {
-  id:string
+  // id:string
   title: string;
-  price: number;
-  image?: string;
-  handleAdd: void
+  price: string;
+  image: string;
+  // handleAdd: void
 };
 
 

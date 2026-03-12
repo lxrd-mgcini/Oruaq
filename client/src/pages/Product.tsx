@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ShoppingBag } from "lucide-react";
 
 import { Link, useParams } from "react-router";
+import { toast } from "sonner";
 
 export default function Product() {
   const params = useParams();
@@ -23,7 +24,7 @@ export default function Product() {
   // const cart = useCart((state) => state.cart);
 
   //   const params = useParams();
-  const tags = ["nailcare", "cosmetic"];
+
 
   return (
     <div className="relative max-w-full">
@@ -33,26 +34,26 @@ export default function Product() {
         {product ? (
           <div className="flex flex-col-reverse gap-4 sm:flex-row">
             <div className="flex flex-1 flex-col gap-4">
-              <div className="h-[60vh]">
+              <div className="h-[90vh]">
                 <img
                   className="h-full w-full object-cover"
-                  src={"/images/make-up-img-4-768x960.jpg"}
+                  src={product.imgUrl[0]}
                   alt=""
                 />
               </div>
 
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div className="h-[30vh]">
+                <div className="h-[40vh]">
                   <img
                     className="h-full w-full object-cover object-center"
-                    src={"/images/make-up-img-4-768x960.jpg"}
+                    src={product.imgUrl[1]}
                     alt=""
                   />
                 </div>
-                <div className="h-[30vh]">
+                <div className="h-[40vh]">
                   <img
                     className="h-full w-full object-cover object-center"
-                    src="/images/make-up-img-4-768x960.jpg"
+                    src={product.imgUrl[2]}
                     alt=""
                   />
                 </div>
@@ -73,9 +74,9 @@ export default function Product() {
                     </p>
                     <p>
                       <strong className="no-underline">Tags</strong>:
-                      {tags.map((tag) => {
+                      {product.tags.map((tag) => {
                         return (
-                          <Link to={`/products/${tag}`}>
+                          <Link to={`/products?tags=${tag}`}>
                             {" "}
                             <span className="underline">{tag},</span>
                           </Link>
@@ -98,6 +99,7 @@ export default function Product() {
                         price: product?.price,
                         quantity: 1,
                       });
+                      toast.success(`${product.name} added to cart`)
                     }}
                   >
                     <ShoppingBag size={20} /> Add to Cart

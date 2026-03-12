@@ -6,15 +6,16 @@ import Tags from "@/components/Tags";
 import MainLayout from "@/layout/MainLayout";
 import { getAllProductsQueryFn } from "@/services/API";
 import { useCart } from "@/store/cart";
+import { ProductResponseType } from "@/types/API.type";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
 
-type ProductProps = {
-  _id: string;
-  name: string;
-  price: number;
-  image: string;
-};
+// type ProductProps = {
+//   _id: string;
+//   name: string;
+//   price: number;
+//   image: string;
+// };
 
 export const Products = () => {
   const { data: products } = useQuery({
@@ -36,14 +37,14 @@ export const Products = () => {
       </div>
       
       <MainLayout>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {products?.map((product: ProductProps) => {
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+          {products?.map((product: ProductResponseType) => {
             return (
               <div className="flex aspect-square h-full w-full flex-1 flex-col text-center">
-                <div className="relative aspect-square h-max w-full overflow-hidden">
+                <div className="aspect-square h-max w-full overflow-hidden">
                   <Link to={`/products/${product._id}`}>
                     <img
-                      src={product.image || "/images/body-care.jpg"}
+                      src={product.imgUrl[0] || "/images/body-care.jpg"}
                       alt=""
                       className="h-[100vw] min-w-full object-cover object-center transition duration-500 ease-in-out hover:scale-110 sm:h-full"
                     />

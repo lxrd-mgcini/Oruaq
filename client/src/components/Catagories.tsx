@@ -5,32 +5,32 @@ export default function Catagories() {
     {
       id: 1,
       name: "Skin Care",
-      description: "Remove spots and blemishes easily.",
+      description: "Reveal your natural glow",
       imgUrl: "skin-care.jpg",
     },
     {
       id: 2,
-      name: "Body Care",
-      description: "Keep your skin young and protected",
+      name: "Body",
+      description: "Soft and rejuvenated skin from head to toe.",
       imgUrl: "body-care.jpg",
     },
 
     {
       id: 3,
-      name: "Hand Care",
-      description: "Acts as an antioxidant, helping protect cells.",
-      imgUrl: "body-care.jpg",
+      name: "Hands",
+      description: "Nourish and protect your most hard-working skin.",
+      imgUrl: "Handcare.jpg",
     },
     {
       id: 4,
-      name: "Hair Care",
-      description: "Acts as an antioxidant, helping protect cells.",
-      imgUrl: "body-care.jpg",
+      name: "Hair",
+      description: " Strength, shine and lasting vitality.",
+      imgUrl: "Haircare.jpg",
     },
     {
       id: 5,
       name: "Fragrances",
-      description: "No harsh chemicals, only natural cleanser.",
+      description: "Discover your signature scent in our collection.",
       imgUrl: "fragrances.jpg",
     },
   ];

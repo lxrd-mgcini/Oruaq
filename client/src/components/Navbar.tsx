@@ -1,7 +1,6 @@
 import { MapPin, Menu, Search, ShoppingBag, UserRound, X } from "lucide-react";
 import { SetStateAction, useState } from "react";
 import { Link } from "react-router";
-import MobileMenu from "./MobileMenu";
 import Cart from "./Cart";
 import { useCart } from "@/store/cart";
 import { useShallow } from "zustand/react/shallow";
@@ -10,14 +9,13 @@ export default function Navbar() {
   const [activeTab, setActiveTab] = useState(0);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-   const { count } = useCart(
-      useShallow((state) => ({
-        count: state.count,
-        
-      }))
-    );
-  
-      const totalItems = count;
+  const { count } = useCart(
+    useShallow((state) => ({
+      count: state.count,
+    })),
+  );
+
+  const totalItems = count;
 
   const Hair = function () {
     return (
@@ -163,12 +161,21 @@ export default function Navbar() {
 
   const MobileNav = function () {
     return (
-      <div className="fixed min-h-screen right-[0px] top-0 z-30 flex w-full flex-col bg-black/35 pl-32">
-        <div className="h-screen bg-white">
-          <div className="flex h-fit items-start gap-2 bg-white px-4 pt-14">
-          <MobileMenu />
-          <button
-            className="flex h-6 w-6 flex-[1] bg-inherit"
+      <div className="fixed right-[0px] top-0 z-30 flex min-h-screen w-full flex-col bg-black/35 pl-32">
+        <div className="flex relative h-screen items-start gap-2 bg-white px-4 pt-14">
+            <ul className="flex flex-col gap-4">              
+              <li>
+                <Link to="/checkout">Checkout</Link>
+              </li>
+              <li>
+                <Link to="/Login">My Account</Link>
+              </li>
+              <li>
+                <Link to="/checkout">Cart</Link>
+              </li>
+            </ul>
+            <button
+            className="absolute right-5 flex h-6 w-6 bg-inherit"
             onClick={() => {
               setMobileNavOpen(!mobileNavOpen);
               if (mobileNavOpen === true) {
@@ -181,9 +188,7 @@ export default function Navbar() {
           >
             <X color="#4a463f" />
           </button>
-        </div>
-        </div>      
-        
+          </div>
       </div>
     );
   };
@@ -209,12 +214,16 @@ export default function Navbar() {
           </h1>
         </Link>
         <div className="relative flex gap-4">
-          {totalItems !==0 && <div className="absolute top-4 left 4">
-            <p className=" bg-black text-white rounded-full w-6 text-sm h-6 font-bold text-center flex items-center justify-center">{totalItems}</p>
-          </div>}
-          
+          {totalItems !== 0 && (
+            <div className="left 4 absolute top-4">
+              <p className="flex h-6 w-6 items-center justify-center rounded-full bg-black text-center text-sm font-bold text-white">
+                {totalItems}
+              </p>
+            </div>
+          )}
+
           <ShoppingBag
-          onClick={() => {
+            onClick={() => {
               // console.log(cartOpen);
               setCartOpen(!cartOpen);
             }}
@@ -239,7 +248,7 @@ export default function Navbar() {
             color="#4a463f"
           />
           {mobileNavOpen && <MobileNav />}
-          {cartOpen && <Cart/>}
+          {cartOpen && <Cart />}
         </div>
       </div>
       <div className="mb-2 mt-2 flex w-full justify-center font-light text-black">

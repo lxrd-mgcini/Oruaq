@@ -20,7 +20,7 @@ export function LoginForm() {
 
   const mutation = useMutation({
     mutationFn: loginMutationFn,
-    onSuccess: (response) => {
+    onSuccess: () => {
       toast.success("Successfully logged in")
       // Redirect or update global auth state here
       navigate('/')

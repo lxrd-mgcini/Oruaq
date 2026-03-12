@@ -1,10 +1,10 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export type CartItem = {
   _id: string;
   name: string;
-  price: number;
+  price: string;
   quantity: number;
 };
 
@@ -13,10 +13,11 @@ type CartState = {
   cart: CartItem[];
   addCart: (item: CartItem) => void;
   removeCart: (id: string) => void;
+  clearCart: () => void;
 };
 
 export const useCart = create<CartState>()(
-// add this
+  // add this
   persist(
     (set) => ({
       count: 0,
@@ -24,7 +25,7 @@ export const useCart = create<CartState>()(
       addCart: (item) =>
         set((state) => {
           const existingItem = state.cart.find(
-            (cartItem) => cartItem._id === item._id
+            (cartItem) => cartItem._id === item._id,
           );
           if (existingItem) {
             return {
@@ -32,7 +33,7 @@ export const useCart = create<CartState>()(
               cart: state.cart.map((cartItem) =>
                 cartItem._id === item._id
                   ? { ...cartItem, quantity: cartItem.quantity + 1 }
-                  : cartItem
+                  : cartItem,
               ),
             };
           }
@@ -50,7 +51,7 @@ export const useCart = create<CartState>()(
               cart: state.cart.map((cartItem) =>
                 cartItem._id === id
                   ? { ...cartItem, quantity: cartItem.quantity - 1 }
-                  : cartItem
+                  : cartItem,
               ),
             };
           }
@@ -59,8 +60,14 @@ export const useCart = create<CartState>()(
             cart: state.cart.filter((item) => item._id !== id),
           };
         }),
+
+      clearCart: () =>
+        set({
+          cart: [],
+          count: 0,
+        }),
     }),
-// add this
-    { name: 'cart-storage' }
-  )
+    // add this
+    { name: "cart-storage" },
+  ),
 );

@@ -16,7 +16,7 @@ export default function Cart() {
   );
     const totalItems = count;
   const totalPrice = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + Number(item.price) * item.quantity,
     0
   );
 
@@ -44,7 +44,7 @@ export default function Cart() {
               <p>{item.quantity}</p>
               <button onClick={() => addCart(item)}>+</button>
             </div>
-            <p>${(item.price * item.quantity).toFixed(2)}</p>
+            <p>${(Number(item.price) * item.quantity).toFixed(2)}</p>
           </li>
         ))}
       </ul>

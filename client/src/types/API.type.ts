@@ -27,8 +27,8 @@ export type ProductResponseType = {
   _id: string;
   name: string;
   description: string;
-  price: number;
-  imgUrl: boolean;
+  price: string;
+  imgUrl: string[];
   tags: string[];
   updatedAt: string;
   createdAt: string;

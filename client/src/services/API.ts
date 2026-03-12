@@ -7,17 +7,12 @@ export const registerMutationFn = async (data: registerType) =>
 export const loginMutationFn = async (data: loginType) =>
   await API.post("/auth/login", data, {withCredentials:true});
 
-export const getAllProductsQueryFn = async () => {
-  try {
+export const getAllProductsQueryFn = async (): Promise<ProductResponseType[]> => {
+
     const response = await API.get('/products');
-    console.log("request sent")
-    console.log(response)
     return response.data;
     
-  } catch (error) {
-    console.error('Error fetching products:', error);
-    return null;
-  }
+ 
 };
 
 export const getProductByIdQueryFn = async (

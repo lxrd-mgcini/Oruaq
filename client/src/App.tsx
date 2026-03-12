@@ -50,7 +50,7 @@ function App() {
           <Route path='checkout' element={<Checkout/>}/>
         </Routes>
       </ScrollToTopWrapper>
-      <Toaster duration={7000} toastOptions={{classNames:{
+      <Toaster toastOptions={{classNames:{
       
         content:"text-black font-sans",   
          

@@ -8,4 +8,5 @@ export const config = {
   JWT_SECRET: getEnv("JWT_SECRET"),
   RESEND_API_KEY: getEnv("RESEND_API_KEY"),
   CLIENT_URL: getEnv("CLIENT_URL"),
+  FRONTEND_ORIGIN:getEnv("FRONTEND_ORIGIN")
 };

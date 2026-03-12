@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router";
-import { loginType, registerType } from "@/types/API.type";
+import { registerType } from "@/types/API.type";
 import { useMutation } from "@tanstack/react-query";
-import { loginMutationFn, registerMutationFn } from "@/services/API";
+import {  registerMutationFn } from "@/services/API";
 import { toast } from "sonner";
 // import { z } from "zod";
 
@@ -21,7 +21,7 @@ export function RegisterForm() {
 
   const mutation = useMutation({
     mutationFn: registerMutationFn,
-    onSuccess: (response) => {
+    onSuccess: () => {
       toast.success("Account registration successful")
       // Redirect or update global auth state here
       navigate('/login')

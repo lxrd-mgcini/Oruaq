@@ -10,10 +10,25 @@ import {
   sendWelcomeEmail,
 } from "../mailers/mailer";
 
+// type userDTO =
+//   {
+//     username: string;
+//     email: string;
+//     password: string;
+//     role: RoleEnum;
+//     verified: boolean;
+//     verificationCode: string;
+//     verificationCodeExpiryDate: Date;
+//     resetPasswordToken: string;
+//     resetPasswordExpiryDate: number;
+//   }
+
+
 import UserModel from "../models/user.model";
 import { generateJWT } from "../utils/jwt";
 import { generateVerificationCode } from "../utils/uuid";
 import bcrypt from "bcryptjs";
+import { RoleEnum } from "../enums/role.enum";
 
 export const registerUserService = async (data: UserType) => {
   const { email, username, password } = data;
@@ -38,7 +53,7 @@ export const registerUserService = async (data: UserType) => {
 
   await user.save();
 
-  const token = generateJWT(user.id);
+  const token = generateJWT(user);
 
   // await sendVerificationEmail(user.email, user.verificationCode);
 
@@ -63,7 +78,7 @@ export const loginUserService = async (data: {
     throw new Error("Invalid credentials");
   }
 
-  const token = generateJWT(user.id);
+  const token = generateJWT(user);
 
   return { user, token };
 };

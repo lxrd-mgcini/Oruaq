@@ -7,11 +7,12 @@ import {
   updateProductByIdController,
 } from "../controllers/products.controller";
 import { config } from "../config/app.config";
+import { isAdmin, isAuthenticated } from "../middlewares/auth.middleware";
 
 export const productRoutes = Router();
 
-productRoutes.post(`/`, createProductController);
+productRoutes.post(`/`,isAuthenticated,isAdmin, createProductController);
 productRoutes.get(`/`, getAllProductsController);
 productRoutes.get(`/:id`, getProductByIdController);
-productRoutes.put(`/:id`, updateProductByIdController);
-productRoutes.delete(`/:id`, deleteProductByIdController);
+productRoutes.put(`/:id`,isAuthenticated,isAdmin, updateProductByIdController);
+productRoutes.delete(`/:id`,isAuthenticated,isAdmin, deleteProductByIdController);

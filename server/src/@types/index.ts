@@ -1,3 +1,6 @@
+import mongoose from "mongoose";
+import { RoleEnum } from "../enums/role.enum";
+
 export type UserType = {
   username: string;
   password: string;
@@ -10,3 +13,5 @@ export type MailerParams = {
   html: string;
   from: string;
 };
+
+  

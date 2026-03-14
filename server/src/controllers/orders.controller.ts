@@ -10,7 +10,7 @@ import OrderModel from "../models/order.model";
 
 export const createOrder = asyncHandler(async (req: Request, res: Response) => {
   const { items } = createOrderSchema.parse(req.body);
-  const userId = req.userId
+  const userId = req.user?._id
 
   // Create Order
   const order = await OrderModel.create({ items, userId });
@@ -30,9 +30,7 @@ export const getOrderById = asyncHandler(
       .lean()
       .populate({ path: "items.productId", model: ProductModel });
 
-      // Calculate the total
-
-      console.log(order)
+      // Calculate the total  
 
       const total = order?.items.reduce((acc ,item)=>{
         const price = item.productId.price

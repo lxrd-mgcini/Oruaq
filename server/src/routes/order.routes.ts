@@ -5,4 +5,4 @@ import { isAuthenticated } from "../middlewares/auth.middleware"
 export const orderRoutes = Router()
 
 orderRoutes.post("/", isAuthenticated, createOrder)
-orderRoutes.get("/:id", getOrderById)
+orderRoutes.get("/:id", isAuthenticated,getOrderById)

@@ -14,14 +14,15 @@ export default function NewProducts() {
     queryKey: ["products"],
     queryFn: getAllProductsQueryFn,
   });
+
   return (
     <div className="mt-8 flex flex-col gap-8 text-center">
       <h1 className="text-4xl font-semibold text-black">Latest Products</h1>
       <div className="mt-4 grid grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
         {products
           ?.slice(2, 5)
-          .reverse()
-          .map((product: ProductResponseType) => {
+          ?.reverse()
+          ?.map((product: ProductResponseType) => {
             return (
               <div key={product._id} className="flex aspect-square h-full w-full flex-1 flex-col text-center">
                 <div className="aspect-square h-max w-full overflow-hidden">

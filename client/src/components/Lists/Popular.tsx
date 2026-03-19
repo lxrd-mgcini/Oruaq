@@ -20,8 +20,8 @@ export default function NewProducts() {
       <div className="mt-4 grid grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
         {products
           ?.slice(0, 3)
-          .reverse()
-          .map((product: ProductResponseType) => {
+          ?.reverse()
+          ?.map((product: ProductResponseType) => {
             return (
               <div key={product._id} className="flex aspect-square h-full w-full flex-1 flex-col text-center">
                 <div className="aspect-square h-max w-full overflow-hidden">

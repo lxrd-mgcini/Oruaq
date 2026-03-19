@@ -7,8 +7,6 @@ const orderItemSchema = z.object({
 
 export const createOrderSchema = z.object({
     items: z.array(orderItemSchema),
-
-
 })
 
 export const orderIdSchema = z

@@ -16,7 +16,7 @@ export const isAuthenticated = (
 
     if (!decoded) throw new Error("Invalid or tempered token");
 
-    req.user = decoded.userId;
+    req.user = decoded.user;
 
     next();
   } catch (error) {

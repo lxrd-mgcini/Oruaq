@@ -1,15 +1,25 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router";
-import Home from "./pages/Home";
-import { Products } from "./pages/Products";
-import Product from "./pages/Product";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import { useLayoutEffect } from "react";
+// import Home from "./pages/Home";
+// import { Products } from "./pages/Products";
+// import Product from "./pages/Product";
+// import Login from "./pages/Login";
+// import Register from "./pages/Register";
+// import Dashboard from "./pages/Dashboard";
+import { lazy, useLayoutEffect } from "react";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import Checkout from "./pages/Checkout";
+// import Checkout from "./pages/Checkout";
 import { Toaster } from "@/components/ui/sonner"
+import { Suspense } from 'react';
+
+const Home = lazy(()=> import('./pages/Home'))
+const Product = lazy(()=> import('./pages/Product'))
+const Login = lazy(()=> import('./pages/Login'))
+const Register = lazy(()=> import('./pages/Register'))
+const Dashboard = lazy(()=> import('./pages/Dashboard'))
+const Checkout = lazy(()=> import('./pages/Checkout'))
+const Products = lazy(()=> import('./pages/Products'))
+
 
 type ScrollToTopWrapperProps = {
   children: React.ReactNode;
@@ -38,6 +48,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <ScrollToTopWrapper>
+        <Suspense fallback={<p>Loading ...</p>}>
         <Routes>
           <Route index element={<Home />} />
           <Route path="products">
@@ -49,6 +60,7 @@ function App() {
           <Route path="admin" element={<Dashboard />} />
           <Route path='checkout' element={<Checkout/>}/>
         </Routes>
+        </Suspense>
       </ScrollToTopWrapper>
       <Toaster toastOptions={{classNames:{
       

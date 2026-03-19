@@ -17,7 +17,7 @@ import { Link } from "react-router";
 //   image: string;
 // };
 
-export const Products = () => {
+export default function Products() {
   const { data: products } = useQuery({
     queryKey: ["products"],
     queryFn: getAllProductsQueryFn,

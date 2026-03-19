@@ -13,10 +13,10 @@ import {  healthRoutes } from "./routes/health.route";
 const app = express();
 
 app.use(cookieParser());
-// app.use(cors({
-//   origin: config.FRONTEND_ORIGIN,
-//   credentials: true
-// }));
+app.use(cors({
+  origin: config.FRONTEND_ORIGIN,
+  credentials: true
+}));
 
 console.log(config.BASE_PATH)
 

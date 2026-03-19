@@ -40,7 +40,7 @@ export const Products = () => {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
           {products?.map((product: ProductResponseType) => {
             return (
-              <div className="flex aspect-square h-full w-full flex-1 flex-col text-center">
+              <div key={product._id} className="flex aspect-square h-full w-full flex-1 flex-col text-center">
                 <div className="aspect-square h-max w-full overflow-hidden">
                   <Link to={`/products/${product._id}`}>
                     <img

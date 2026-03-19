@@ -76,7 +76,7 @@ export default function Product() {
                       <strong className="no-underline">Tags</strong>:
                       {product.tags.map((tag) => {
                         return (
-                          <Link to={`/products?tags=${tag}`}>
+                          <Link to={`/products?tags=${tag}`} key={tag}>
                             {" "}
                             <span className="underline">{tag},</span>
                           </Link>

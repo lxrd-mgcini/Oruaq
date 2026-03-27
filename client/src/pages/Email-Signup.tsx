@@ -78,8 +78,8 @@ export default function EmailSignup() {
       <div className="max-h-fit max-w-full pl-4 pr-4 sm:pl-8 sm:pr-8 pt-10 pb-5">
         <div className="mx-auto max-w-[400px] space-y-3 p-4 sm:space-y-6 sm:p-8">
           <div className="space-y-2 text-center">
-            <h1 className="text-3xl font-semibold text-black">Get notified when we're launching</h1>
-            <p className="font-light text-gray-500">Be part of the excitement: receive exclusive Launch updates and Notifications</p>
+            <h1 className="text-3xl font-semibold text-black">Don’t miss our launch</h1>
+            <p className="font-light text-gray-500">Reserve your spot for launch deals</p>
           </div>
 
           <form className="space-y-6 pb-24" onSubmit={handleSubmit}>

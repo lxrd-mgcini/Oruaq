@@ -12,7 +12,6 @@ export default function Login() {
       <MainLayout>
         <LoginForm />
       </MainLayout>
-
       <Footer />
     </div>
   );

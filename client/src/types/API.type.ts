@@ -7,6 +7,8 @@ export type registerType = {
 
 export type loginType = { email: string; password: string };
 
+export type emailSignupType = { email: string };
+
 export type LoginResponseType = {
   message: string;
   user: {

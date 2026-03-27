@@ -8,6 +8,11 @@ export const userLoginSchema = z.object({
   email: emailSchema,
   password: passwordSchema,
 });
+
+export const emailSignupSchema = z.object({
+  email: emailSchema,
+});
+
 export const userRegistrationSchema = z.object({
   email: emailSchema,
   username: usernameSchema,

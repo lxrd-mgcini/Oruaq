@@ -12,13 +12,14 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Toaster } from "@/components/ui/sonner"
 import { Suspense } from 'react';
 
-const Home = lazy(()=> import('./pages/Home'))
-const Product = lazy(()=> import('./pages/Product'))
-const Login = lazy(()=> import('./pages/Login'))
-const Register = lazy(()=> import('./pages/Register'))
-const Dashboard = lazy(()=> import('./pages/Dashboard'))
-const Checkout = lazy(()=> import('./pages/Checkout'))
-const Products = lazy(()=> import('./pages/Products'))
+// const Home = lazy(()=> import('./pages/Home'))
+// const Product = lazy(()=> import('./pages/Product'))
+// const Login = lazy(()=> import('./pages/Login'))
+// const Register = lazy(()=> import('./pages/Register'))
+// const Dashboard = lazy(()=> import('./pages/Dashboard'))
+// const Checkout = lazy(()=> import('./pages/Checkout'))
+// const Products = lazy(()=> import('./pages/Products'))
+const EmailSignup = lazy(()=> import('./pages/Email-Signup'))
 
 
 type ScrollToTopWrapperProps = {
@@ -50,7 +51,8 @@ function App() {
       <ScrollToTopWrapper>
         <Suspense fallback={<p>Loading ...</p>}>
         <Routes>
-          <Route index element={<Home />} />
+          <Route index element={<EmailSignup />} />
+          {/* <Route index element={<Home />} />
           <Route path="products">
             <Route index element={<Products />} />
             <Route path=":productId" element={<Product />} />
@@ -58,7 +60,9 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="admin" element={<Dashboard />} />
-          <Route path='checkout' element={<Checkout/>}/>
+          <Route path='checkout' element={<Checkout/>}/> */}
+          
+
         </Routes>
         </Suspense>
       </ScrollToTopWrapper>

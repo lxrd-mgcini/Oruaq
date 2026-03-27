@@ -1,5 +1,6 @@
 import { MapPin, Menu, Search, ShoppingBag, UserRound, X } from "lucide-react";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
+import { SetStateAction } from "react";
 import { Link } from "react-router";
 import Cart from "./Cart";
 import { useCart } from "@/store/cart";
@@ -165,13 +166,13 @@ export default function Navbar() {
         <div className="flex relative h-screen items-start gap-2 bg-white px-4 pt-14">
             <ul className="flex flex-col gap-4">              
               <li>
-                <Link to="/checkout">Checkout</Link>
+                <Link to="/">Checkout</Link>
               </li>
               <li>
-                <Link to="/Login">My Account</Link>
+                <Link to="/">My Account</Link>
               </li>
               <li>
-                <Link to="/checkout">Cart</Link>
+                <Link to="/">Cart</Link>
               </li>
             </ul>
             <button
@@ -209,8 +210,8 @@ export default function Navbar() {
           />
         </div>
         <Link to="/">
-          <h1 className="ml-auto mr-auto flex cursor-pointer text-4xl font-semibold text-black">
-            ORUAQ
+          <h1 className="ml-auto mr-auto flex cursor-pointer text-4xl font-semibold text-black ">
+            ORUAQ SKIN
           </h1>
         </Link>
         <div className="relative flex gap-4">
@@ -231,7 +232,7 @@ export default function Navbar() {
             size={24}
             color="#4a463f"
           />
-          <Link to="/login">
+          <Link to="/">
             <UserRound
               className="hidden cursor-pointer gap-4 sm:flex"
               size={24}
@@ -255,27 +256,27 @@ export default function Navbar() {
         <ul className="md:text-md mb-2 hidden gap-8 md:ml-4 md:mr-4 md:flex">
           <div>
             <li
-              onClick={() => handleTabClick(1)}
+              // onClick={() => handleTabClick(1)}
               className="after:ease-[cubic-bezier(0.65_0.05_0.36_1)] relative cursor-pointer px-2 py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:w-full after:origin-bottom after:scale-x-0 after:bg-neutral-800 after:transition-transform after:duration-300 hover:after:origin-bottom hover:after:scale-x-100"
-              style={
-                activeTab === 1
-                  ? {
-                      fontWeight: "bold",
-                      backgroundColor: "#e8d1af80",
-                      color: "#4a463f",
-                      borderBottom: "2px solid #4a463f",
-                    }
-                  : {}
-              }
+              // style={
+              //   activeTab === 1
+              //     ? {
+              //         fontWeight: "bold",
+              //         backgroundColor: "#e8d1af80",
+              //         color: "#4a463f",
+              //         borderBottom: "2px solid #4a463f",
+              //       }
+              //     : {}
+              // }
             >
               Skin
             </li>
-            {activeTab === 1 && <Hair />}
+            {/* {activeTab === 1 && <Hair />} */}
           </div>
 
           <div>
             <li
-              onClick={() => handleTabClick(2)}
+              // onClick={() => handleTabClick(2)}
               className="after:ease-[cubic-bezier(0.65_0.05_0.36_1)] relative cursor-pointer px-2 py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:w-full after:origin-bottom after:scale-x-0 after:bg-neutral-800 after:transition-transform after:duration-300 hover:after:origin-bottom hover:after:scale-x-100"
               style={
                 activeTab === 2
@@ -295,7 +296,7 @@ export default function Navbar() {
 
           <div>
             <li
-              onClick={() => handleTabClick(3)}
+              // onClick={() => handleTabClick(3)}
               className="after:ease-[cubic-bezier(0.65_0.05_0.36_1)] relative cursor-pointer px-2 py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:w-full after:origin-bottom after:scale-x-0 after:bg-neutral-800 after:transition-transform after:duration-300 hover:after:origin-bottom hover:after:scale-x-100"
               style={
                 activeTab === 3
@@ -316,7 +317,7 @@ export default function Navbar() {
 
           <div>
             <li
-              onClick={() => handleTabClick(4)}
+              // onClick={() => handleTabClick(4)}
               className="after:ease-[cubic-bezier(0.65_0.05_0.36_1)] relative cursor-pointer px-2 py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:w-full after:origin-bottom after:scale-x-0 after:bg-neutral-800 after:transition-transform after:duration-300 hover:after:origin-bottom hover:after:scale-x-100"
               style={
                 activeTab === 4
@@ -337,7 +338,7 @@ export default function Navbar() {
 
           <div>
             <li
-              onClick={() => handleTabClick(5)}
+              // onClick={() => handleTabClick(5)}
               className="after:ease-[cubic-bezier(0.65_0.05_0.36_1)] relative cursor-pointer px-2 py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:w-full after:origin-bottom after:scale-x-0 after:bg-neutral-800 after:transition-transform after:duration-300 hover:after:origin-bottom hover:after:scale-x-100"
               style={
                 activeTab === 5
@@ -358,7 +359,7 @@ export default function Navbar() {
 
           <div>
             <li
-              onClick={() => handleTabClick(6)}
+              // onClick={() => handleTabClick(6)}
               className="after:ease-[cubic-bezier(0.65_0.05_0.36_1)] relative cursor-pointer px-2 py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:w-full after:origin-bottom after:scale-x-0 after:bg-neutral-800 after:transition-transform after:duration-300 hover:after:origin-bottom hover:after:scale-x-100"
               style={
                 activeTab === 6
@@ -379,7 +380,7 @@ export default function Navbar() {
 
           <div>
             <li
-              onClick={() => handleTabClick(7)}
+              // onClick={() => handleTabClick(7)}
               className="after:ease-[cubic-bezier(0.65_0.05_0.36_1)] relative cursor-pointer px-2 py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:w-full after:origin-bottom after:scale-x-0 after:bg-neutral-800 after:transition-transform after:duration-300 hover:after:origin-bottom hover:after:scale-x-100"
               style={
                 activeTab === 7
@@ -400,7 +401,7 @@ export default function Navbar() {
 
           <div>
             <li
-              onClick={() => handleTabClick(8)}
+              // onClick={() => handleTabClick(8)}
               className="after:ease-[cubic-bezier(0.65_0.05_0.36_1)] relative cursor-pointer px-2 py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:w-full after:origin-bottom after:scale-x-0 after:bg-neutral-800 after:transition-transform after:duration-300 hover:after:origin-bottom hover:after:scale-x-100"
               style={
                 activeTab === 8

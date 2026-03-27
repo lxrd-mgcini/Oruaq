@@ -51,7 +51,7 @@ export default function Catagories() {
               <p className="font-light">{card.description}</p>
               <div className="z-20 flex justify-center">
                 <Link to="/products">
-                  <button className="group relative inline-flex items-center justify-center overflow-hidden bg-white px-12 py-6 font-medium text-black transition hover:scale-110">
+                  <button className="group relative inline-flex items-center justify-center overflow-hidden bg-[] px-12 py-6 font-medium text-black transition hover:scale-110">
                     <span>Shop Now</span>
                     <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-100%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(100%)]">
                       <div className="backdrop-brightness-40 relative h-full w-8 bg-brand/40"></div>

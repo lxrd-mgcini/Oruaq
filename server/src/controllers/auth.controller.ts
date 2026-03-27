@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { asyncHandler } from "../middlewares/asyncHandler.middleware";
 import {
+  emailSignupSchema,
   forgotPasswordSchema,
   resetPasswordSchema,
   resetTokenSchema,
@@ -16,6 +17,7 @@ import {
   verifyUserService,
 } from "../services/auth.services";
 import { HTTPSTATUS } from "../config/http.config";
+import EmailModel from "../models/email.model";
 
 export const registerUserController = asyncHandler(
   async (req: Request, res: Response) => {
@@ -34,6 +36,32 @@ export const registerUserController = asyncHandler(
       message: "User registered successfully",
       success: true,
       user: { ...user._doc, password: undefined },
+    });
+  }
+);
+export const signupUserController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const {email} = emailSignupSchema.parse(req.body);
+
+    const existingEmail  = await EmailModel.findOne({email});
+
+    if(existingEmail){
+      res.status(HTTPSTATUS.CONFLICT).json({
+      message: "Email already registered",
+      success: false,
+    });
+      throw new Error()
+     }
+
+    const newEmail = new EmailModel({email:email})
+
+    await newEmail.save()
+
+
+    res.status(HTTPSTATUS.CREATED).json({
+      message: "Email successfully registered",
+      success: true,
+      email: { newEmail },
     });
   }
 );

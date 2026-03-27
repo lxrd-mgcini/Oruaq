@@ -1,4 +1,4 @@
-import { loginType, OrderRequestType, ProductResponseType, registerType } from "@/types/API.type";
+import { emailSignupType, loginType, OrderRequestType, ProductResponseType, registerType } from "@/types/API.type";
 import API from "./axios-client";
 
 export const registerMutationFn = async (data: registerType) =>
@@ -6,6 +6,9 @@ export const registerMutationFn = async (data: registerType) =>
 
 export const loginMutationFn = async (data: loginType) =>
   await API.post("/auth/login", data, {withCredentials:true});
+
+export const emailSignupMutationFn = async (data: emailSignupType) =>
+  await API.post("/auth/signup", data, {withCredentials:true});
 
 export const getAllProductsQueryFn = async (): Promise<ProductResponseType[]> => {
 
